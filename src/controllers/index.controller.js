@@ -32,8 +32,20 @@ const createTasks = async (req, res) => {
     });
 };
 
+const deleteTask = async (req, res) => {
+    const id = req.params.id;
+    const response = await pool.query('DELETE FROM public."Task" WHERE task_id = $1', [id]);
+    res.json({
+        message: 'task deleted succesfully',
+        body: {
+            task: {id}
+        }
+    });
+}
+
 module.exports = {
     getTasks,
     getTaskById,
-    createTasks
+    createTasks,
+    deleteTask
 };
